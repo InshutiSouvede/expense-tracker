@@ -3,8 +3,6 @@ import ExpenseList from './ExpenseList';
 import Form from './Form'
 import ExpensesFilter from './ExpensesFilter';
 
-export const categories = ["Groceries","Utilites","Entertainment"]
-
 export default function Home() {
     const [expenses,setExpenses] = useState([
         {id:1,description:"aaa",amount:10,category:"Utilities"},
