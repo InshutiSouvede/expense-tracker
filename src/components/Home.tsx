@@ -10,12 +10,13 @@ export default function Home() {
         {id:4,description:"aaa",amount:10,category:"Utilities"}
     ])
     const [selectedCategory,setSelectedCategory] = useState<string>("")
+    const visibleExpenses = !selectedCategory?expenses:expenses.filter((el)=>el.category==selectedCategory)
     return (
         <div className='px-20 text-2xl text-cyan-900'>
             <Form />
             <ExpensesFilter onSelectCategory={(category)=>setSelectedCategory(category)} />
             <ExpenseList 
-            expenses={expenses.filter((el)=>!selectedCategory?true:el.category==selectedCategory)}
+            expenses={visibleExpenses}
             onDelete={(id)=>setExpenses(expenses.filter((expense)=>expense.id!=id))}
             />
         </div>

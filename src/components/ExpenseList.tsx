@@ -28,7 +28,7 @@ function ExpenseList({expenses,onDelete}:Props) {
                         <td>{expense.amount}</td>
                         <td>{expense.category}</td>
                         <td>
-                        <button onClick={()=>onDelete(expense.id)} className="border-2 border-red-400 my-5 text-black mx-5 h-14 rounded-md px-5">Delete</button>
+                        <button onClick={()=>onDelete(expense.id)} className="border-2 border-red-400 my-5 mx-5 h-14 rounded-md px-5">Delete</button>
                         </td>
                     </tr>
                 }))}
