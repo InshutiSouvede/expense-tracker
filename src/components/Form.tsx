@@ -1,4 +1,4 @@
-import {FieldValues, useForm } from "react-hook-form";
+import {useForm } from "react-hook-form";
 import {z} from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { categories } from "../categories";
@@ -9,13 +9,14 @@ const schema =  z.object({
     }) ,
     amount: z.number({invalid_type_error:"Amount is required"}).min(0.01).max(100_000)
 });
-type FormData = z.infer<typeof schema>
-export default function Form() {
-    const {register,handleSubmit, formState:{errors,isValid}} = useForm<FormData>({resolver:zodResolver(schema)})
-    console.log(errors.description?.message,isValid)
-    const onSubmit = (data:FieldValues)=>{
-        console.log("Form data", data)
-    }
+type ExpenseFormData = z.infer<typeof schema>
+
+interface Props {
+    onSubmit:(data:ExpenseFormData)=>void; 
+}
+export default function Form({onSubmit}:Props) {
+    const {register,handleSubmit, formState:{errors,isValid}} = useForm<ExpenseFormData>({resolver:zodResolver(schema)})
+    
     return (
         <form className="flex flex-col gap-10" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-3">
@@ -32,7 +33,7 @@ export default function Form() {
             <label htmlFor="category">Category</label>
             <select  {...register('category')} className="w-full h-14 rounded-md px-5 border-2 bg-transparent" id="category">
             <option value=""></option>
-            {categories.map((category)=><option value={category}>{category}</option>)}
+            {categories.map((category,index)=><option key={index} value={category}>{category}</option>)}
             </select>
             {errors.category&&<p className="text-red-600">{errors.category.message}</p>}
             </div>
