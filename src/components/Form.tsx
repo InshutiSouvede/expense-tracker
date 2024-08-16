@@ -15,10 +15,13 @@ interface Props {
     onSubmit:(data:ExpenseFormData)=>void; 
 }
 export default function Form({onSubmit}:Props) {
-    const {register,handleSubmit, formState:{errors,isValid}} = useForm<ExpenseFormData>({resolver:zodResolver(schema)})
+    const {register,handleSubmit, formState:{errors,isValid},reset} = useForm<ExpenseFormData>({resolver:zodResolver(schema)})
     
     return (
-        <form className="flex flex-col gap-10" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-10" onSubmit={handleSubmit(data=>{
+            onSubmit(data)
+            reset()
+            })}>
             <div className="flex flex-col gap-3">
                 <label htmlFor="name">Name</label>
                 <input  type="text" id="name" {...register('description')}  className="border rounded-md h-14 px-5" />
