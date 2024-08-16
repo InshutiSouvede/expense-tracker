@@ -2,19 +2,20 @@ import { useState } from 'react';
 import ExpenseList from './ExpenseList';
 import Form from './Form'
 import ExpensesFilter from './ExpensesFilter';
+import { nanoid } from 'nanoid';
 
 export default function Home() {
     const [expenses,setExpenses] = useState([
-        {id:1,description:"aaa",amount:10,category:"Utilities"},
-        {id:2,description:"aaa",amount:10,category:"Groceries"},
-        {id:3,description:"aaa",amount:10,category:"Entertainment"},
-        {id:4,description:"aaa",amount:10,category:"Utilities"}
+        {id:nanoid(),description:"aaa",amount:10,category:"Utilities"},
+        {id:nanoid(),description:"aaa",amount:10,category:"Groceries"},
+        {id:nanoid(),description:"aaa",amount:10,category:"Entertainment"},
+        {id:nanoid(),description:"aaa",amount:10,category:"Utilities"}
     ])
     const [selectedCategory,setSelectedCategory] = useState("")
     const visibleExpenses = !selectedCategory?expenses:expenses.filter((el)=>el.category==selectedCategory)
     return (
         <div className='px-20 text-2xl text-cyan-900'>
-            <Form onSubmit={expense=>setExpenses([...expenses,{id:expenses.length+1,...expense}])} />
+            <Form onSubmit={expense=>setExpenses([...expenses,{id:nanoid(),...expense}])} />
             <ExpensesFilter onSelectCategory={(category)=>setSelectedCategory(category)} />
             <ExpenseList 
             expenses={visibleExpenses}

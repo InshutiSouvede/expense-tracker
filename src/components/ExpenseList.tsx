@@ -1,12 +1,12 @@
 interface Expense{
-    id:number,
+    id:string,
     description:string,
     amount: number,
     category:string
 }
 interface Props{
     expenses:Expense[]
-    onDelete: (id:number)=>void
+    onDelete: (id:string)=>void
 }
 function ExpenseList({expenses,onDelete}:Props) {
     return (
